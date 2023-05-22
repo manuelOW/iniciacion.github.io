@@ -64,7 +64,7 @@ captureButton.addEventListener('click', function() {
   formData.append('strength', strength);
   formData.append('img', imageDataURL);
 
-  fetch('https://api.computerender.com/generate', {
+  fetch('https://computerender.com/models-sd.html', {
     method: 'POST',
     body: formData,
     headers: {
