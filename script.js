@@ -24,15 +24,32 @@ navigator.mediaDevices.getUserMedia({ video: true })
 
 // Capturar la foto cuando se hace clic en el botón
 captureButton.addEventListener('click', function() {
-  // Capturar el fotograma actual del video
+  // Obtener el ancho y alto reales del video
+  const videoWidth = videoElement.videoWidth;
+  const videoHeight = videoElement.videoHeight;
+
+  // Configurar el canvas con el tamaño del video
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');
-  canvas.width = width;
-  canvas.height = height;
-  context.drawImage(videoElement, 0, 0, width, height);
+  canvas.width = videoWidth;
+  canvas.height = videoHeight;
 
-  // Convertir el fotograma capturado a una imagen en base64
-  const imageDataURL = canvas.toDataURL('image/jpeg');
+  // Dibujar el video en el canvas sin reflejarlo horizontalmente
+  context.drawImage(videoElement, 0, 0, videoWidth, videoHeight);
+
+  // Crear un nuevo canvas para la foto
+  const photoCanvas = document.createElement('canvas');
+  const photoContext = photoCanvas.getContext('2d');
+  photoCanvas.width = videoWidth;
+  photoCanvas.height = videoHeight;
+
+  // Voltear horizontalmente la foto en el nuevo canvas
+  photoContext.translate(videoWidth, 0);
+  photoContext.scale(-1, 1);
+  photoContext.drawImage(canvas, 0, 0, videoWidth, videoHeight);
+
+  // Convertir la foto capturada a una imagen en base64
+  const imageDataURL = photoCanvas.toDataURL('image/jpeg');
 
   // Mostrar la imagen capturada
   photoElement.src = imageDataURL;
