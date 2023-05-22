@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Estilo de pintor aleatorio con Midjourney</title>
-  </head>
-  <body>
-    <h1>Estilo de pintor aleatorio con Midjourney</h1>
-    <form>
-      <label for="imagen">Cargar imagen:</label>
-      <input type="file" id="imagen" name="imagen" accept="image/*">
-      <br>
-      <button type="button" onclick="procesarImagen()">Procesar imagen</button>
-    </form>
-    <div id="resultado"></div>
-  </body>
-</html>
+<head>
+  <title>Procesar Foto</title>
+</head>
+<body>
+  <h1>Procesar Foto con Computerender</h1>
+  
+  <!-- Agrega un elemento de video para mostrar la cámara -->
+  <video id="videoElement" autoplay></video>
+
+  <!-- Agrega un botón para capturar la foto -->
+  <button id="captureButton">Capturar Foto</button>
+
+  <!-- Agrega un elemento de imagen para mostrar la foto capturada -->
+  <img id="photoElement" src="" alt="Captured Photo">
+
+  <h2>Resultado</h2>
+  <div id="resultElement"></div>
