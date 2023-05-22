@@ -68,7 +68,7 @@ captureButton.addEventListener('click', function() {
     method: 'POST',
     body: formData,
     headers: {
-      'Authorization': 'X-API-Key ' + apiKey
+      'Authorization': 'X-API-Key ' + sk_atcjAePBB2ofo3pOB79p0
     }
   })
     .then(function(response) {
