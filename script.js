@@ -62,7 +62,7 @@ captureButton.addEventListener('click', function() {
   formData.append('guidance', guidance);
   formData.append('iterations', iterations);
   formData.append('strength', strength);
-  formData.append('img', imageDataURL);
+  formData.append('image', imageDataURL);
 
   fetch('https://api.computerender.com/generate', {
     method: 'POST',
