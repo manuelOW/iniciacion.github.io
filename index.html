@@ -2,6 +2,34 @@
 <html>
 <head>
   <title>Procesar Foto</title>
+  <style>
+    /* Estilos para diferentes tamaños de pantalla */
+    @media (min-width: 1024px) {
+      /* Estilos para pantallas de computadora */
+      #videoElement {
+        width: 100%;
+        max-width: 800px;
+        height: auto;
+      }
+    }
+
+    @media (min-width: 768px) and (max-width: 1023px) {
+      /* Estilos para iPads y tablets */
+      #videoElement {
+        width: 100%;
+        max-width: 600px;
+        height: auto;
+      }
+    }
+
+    @media (max-width: 767px) {
+      /* Estilos para dispositivos móviles */
+      #videoElement {
+        width: 100%;
+        height: auto;
+      }
+    }
+  </style>
 </head>
 <body>
   <h1>Procesar Foto con Computerender</h1>
