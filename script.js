@@ -68,7 +68,7 @@ captureButton.addEventListener('click', function() {
     method: 'POST',
     body: formData,
     headers: {
-      'Authorization': 'X-API-Key ' + sk_atcjAePBB2ofo3pOB79p0
+      'Authorization': 'X-API-Key ' + apiKey
     }
   })
     .then(function(response) {
@@ -79,7 +79,10 @@ captureButton.addEventListener('click', function() {
       const resultURL = URL.createObjectURL(blob);
 
       // Mostrar la imagen procesada
-      resultElement.innerHTML = '<img src="' + resultURL + '" alt="Processed Result">';
+      const resultImg = document.createElement('img');
+      resultImg.src = resultURL;
+      resultElement.innerHTML = '';
+      resultElement.appendChild(resultImg);
     })
     .catch(function(error) {
       console.error('Error al procesar la foto: ', error);
