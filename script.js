@@ -72,17 +72,22 @@ captureButton.addEventListener('click', function() {
     }
   })
     .then(function(response) {
+      // Guardar la imagen procesada en el lado del servidor
       return response.blob();
     })
     .then(function(blob) {
-      // Crear una URL del blob para mostrar la imagen procesada
+      // Crear una URL del blob para descargar la imagen procesada
       const resultURL = URL.createObjectURL(blob);
 
-      // Mostrar la imagen procesada
-      const resultImg = document.createElement('img');
-      resultImg.src = resultURL;
+      // Crear un enlace para descargar la imagen procesada
+      const downloadLink = document.createElement('a');
+      downloadLink.href = resultURL;
+      downloadLink.download = 'processed_image.jpg';
+      downloadLink.textContent = 'Descargar imagen procesada';
+
+      // Mostrar el enlace para descargar la imagen procesada
       resultElement.innerHTML = '';
-      resultElement.appendChild(resultImg);
+      resultElement.appendChild(downloadLink);
     })
     .catch(function(error) {
       console.error('Error al procesar la foto: ', error);
