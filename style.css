@@ -1,5 +1,4 @@
-body {
-  display: flex;
+display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -19,9 +18,6 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  max-width: 400px;
-  padding: 0 20px;
 }
 
 label {
@@ -56,24 +52,4 @@ button:hover {
 #resultado img {
   max-width: 100%;
   height: auto;
-}
-
-/* Media queries para ajustar el diseño en diferentes dispositivos */
-
-@media (max-width: 600px) {
-  h1 {
-    font-size: 24px;
-  }
-  
-  form {
-    padding: 0 10px;
-  }
-  
-  label {
-    font-size: 14px;
-  }
-  
-  button {
-    font-size: 14px;
-  }
 }
