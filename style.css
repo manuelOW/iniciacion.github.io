@@ -39,7 +39,7 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-bottom: 4px; /* Agrega margen inferior de 4px */
+  margin-bottom: 4px;
 }
 
 button:hover {
@@ -47,6 +47,9 @@ button:hover {
 }
 
 #resultado {
+  display: flex; /* Agrega display flex para centrar los elementos internos */
+  flex-direction: column;
+  align-items: center;
   margin-top: 20px;
   text-align: center;
 }
@@ -54,4 +57,5 @@ button:hover {
 #resultado img {
   max-width: 100%;
   height: auto;
+  margin-top: 10px; /* Ajusta el margen superior según tus preferencias */
 }
