@@ -2,26 +2,22 @@ let imagenResultado;
 let estiloSeleccionado;
 let qrCode;
 
-async function procesarImagen() {
-  // Obtener la imagen cargada
+function procesarImagen() {
   const archivo = document.getElementById('imagen').files[0];
   if (!archivo) {
     alert('Por favor, seleccione una imagen para procesar.');
     return;
   }
 
-  // Leer la imagen como objeto de tipo File
   const lector = new FileReader();
   lector.readAsDataURL(archivo);
 
   lector.onload = async () => {
     const imagenBase64 = lector.result.split(',')[1];
 
-    // Obtener un estilo aleatorio
     const estilos = ["cubismo", "surrealismo", "art deco", "anime"];
     estiloSeleccionado = estilos[Math.floor(Math.random() * estilos.length)];
 
-    // Hacer la solicitud a DeepAI Image API
     const formData = new FormData();
     formData.append("image", archivo);
     formData.append("text", new Blob([estiloSeleccionado], { type: "text/plain" }));
@@ -37,14 +33,12 @@ async function procesarImagen() {
     const data = await response.json();
     console.log(data);
 
-    // Mostrar el resultado en la página web
     imagenResultado = new Image();
     imagenResultado.src = data.output_url;
     imagenResultado.onload = function() {
       document.getElementById('resultado').innerHTML = '';
       document.getElementById('resultado').appendChild(imagenResultado);
 
-      // Mostrar botones para cada estilo posible
       const botonesEstilo = document.createElement('div');
       for (let i = 0; i < estilos.length; i++) {
         const boton = document.createElement('button');
