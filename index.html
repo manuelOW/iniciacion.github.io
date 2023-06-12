@@ -1,51 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Procesar Foto</title>
-  <style>
-    /* Estilos para diferentes tamaños de pantalla */
-    @media (min-width: 1024px) {
-      /* Estilos para pantallas de computadora */
-      #videoElement {
-        width: 100%;
-        max-width: 800px;
-        height: auto;
-      }
-    }
-
-    @media (min-width: 768px) and (max-width: 1023px) {
-      /* Estilos para iPads y tablets */
-      #videoElement {
-        width: 100%;
-        max-width: 600px;
-        height: auto;
-      }
-    }
-
-    @media (max-width: 767px) {
-      /* Estilos para dispositivos móviles */
-      #videoElement {
-        width: 100%;
-        height: auto;
-      }
-    }
-  </style>
+  <title>Estilo de pintor aleatorio con DeepAI Image API</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+  <script src="script.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Procesar Foto con Computerender</h1>
-  
-  <!-- Agrega un elemento de video para mostrar la cámara -->
-  <video id="videoElement" autoplay></video>
-
-  <!-- Agrega un botón para capturar la foto -->
-  <button id="captureButton">Capturar Foto</button>
-
-  <!-- Agrega un elemento de imagen para mostrar la foto capturada -->
-  <img id="photoElement" src="" alt="Captured Photo">
-
-  <h2>Resultado</h2>
-  <div id="resultElement"></div>
-
-  <script src="script.js"></script>
+  <h1>Estilo de pintor aleatorio con DeepAI Image API</h1>
+  <form>
+    <label for="imagen">Cargar imagen:</label>
+    <input type="file" id="imagen" name="imagen" accept="image/*">
+    <br>
+    <button type="button" onclick="procesarImagen()">Procesar imagen</button>
+  </form>
+  <div id="resultado"></div>
 </body>
 </html>
