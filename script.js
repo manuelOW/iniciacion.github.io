@@ -1,95 +1,85 @@
-// Accede a los elementos del DOM
-const videoElement = document.getElementById('videoElement');
-const captureButton = document.getElementById('captureButton');
-const photoElement = document.getElementById('photoElement');
-const resultElement = document.getElementById('resultElement');
+let imagenResultado;
+let estiloSeleccionado;
+let qrCode;
 
-// Opciones de la API
-const promptText = "haz la foto como si fuese pintada por picasso";
-const width = 768;
-const height = 576;
-const guidance = 20.2;
-const iterations = 91;
-const strength = 0.55;
-const apiKey = "sk_atcjAePBB2ofo3pOB79p0";
+async function procesarImagen() {
+  // Obtener la imagen cargada
+  const archivo = document.getElementById('imagen').files[0];
+  if (!archivo) {
+    alert('Por favor, seleccione una imagen para procesar.');
+    return;
+  }
 
-// Acceder a la cámara y mostrar el flujo de video
-navigator.mediaDevices.getUserMedia({ video: true })
-  .then(function(stream) {
-    videoElement.srcObject = stream;
-  })
-  .catch(function(error) {
-    console.error('Error al acceder a la cámara: ', error);
-  });
+  // Leer la imagen como objeto de tipo File
+  const lector = new FileReader();
+  lector.readAsDataURL(archivo);
 
-// Capturar la foto cuando se hace clic en el botón
-captureButton.addEventListener('click', function() {
-  // Obtener el ancho y alto reales del video
-  const videoWidth = videoElement.videoWidth;
-  const videoHeight = videoElement.videoHeight;
+  lector.onload = async () => {
+    const imagenBase64 = lector.result.split(',')[1];
 
-  // Configurar el canvas con el tamaño del video
-  const canvas = document.createElement('canvas');
-  const context = canvas.getContext('2d');
-  canvas.width = videoWidth;
-  canvas.height = videoHeight;
+    // Obtener un estilo aleatorio
+    const estilos = ["cubismo", "surrealismo", "art deco", "anime"];
+    estiloSeleccionado = estilos[Math.floor(Math.random() * estilos.length)];
 
-  // Dibujar el video en el canvas sin reflejarlo horizontalmente
-  context.drawImage(videoElement, 0, 0, videoWidth, videoHeight);
+    // Hacer la solicitud a DeepAI Image API
+    const formData = new FormData();
+    formData.append("image", archivo);
+    formData.append("text", new Blob([estiloSeleccionado], { type: "text/plain" }));
 
-  // Crear un nuevo canvas para la foto
-  const photoCanvas = document.createElement('canvas');
-  const photoContext = photoCanvas.getContext('2d');
-  photoCanvas.width = videoWidth;
-  photoCanvas.height = videoHeight;
-
-  // Voltear horizontalmente la foto en el nuevo canvas
-  photoContext.translate(videoWidth, 0);
-  photoContext.scale(-1, 1);
-  photoContext.drawImage(canvas, 0, 0, videoWidth, videoHeight);
-
-  // Convertir la foto capturada a una imagen en base64
-  const imageDataURL = photoCanvas.toDataURL('image/jpeg');
-
-  // Mostrar la imagen capturada
-  photoElement.src = imageDataURL;
-
-  // Enviar la imagen a la API para procesarla
-  const formData = new FormData();
-  formData.append('prompt', promptText);
-  formData.append('w', width);
-  formData.append('h', height);
-  formData.append('guidance', guidance);
-  formData.append('iterations', iterations);
-  formData.append('strength', strength);
-  formData.append('img', imageDataURL);
-
-  fetch('https://computerender.com/models-sd.html', {
-    method: 'POST',
-    body: formData,
-    headers: {
-      'Authorization': 'X-API-Key ' + apiKey
-    }
-  })
-    .then(function(response) {
-      // Guardar la imagen procesada en el lado del servidor
-      return response.blob();
-    })
-    .then(function(blob) {
-      // Crear una URL del blob para descargar la imagen procesada
-      const resultURL = URL.createObjectURL(blob);
-
-      // Crear un enlace para descargar la imagen procesada
-      const downloadLink = document.createElement('a');
-      downloadLink.href = resultURL;
-      downloadLink.download = 'processed_image.jpg';
-      downloadLink.textContent = 'Descargar imagen procesada';
-
-      // Mostrar el enlace para descargar la imagen procesada
-      resultElement.innerHTML = '';
-      resultElement.appendChild(downloadLink);
-    })
-    .catch(function(error) {
-      console.error('Error al procesar la foto: ', error);
+    const response = await fetch('https://api.deepai.org/api/image-editor', {
+      method: 'POST',
+      headers: {
+        'api-key': 'fe10a5a6-bccd-410e-a138-c43f99b62ce5',
+      },
+      body: formData,
     });
-});
+
+    const data = await response.json();
+    console.log(data);
+
+    // Mostrar el resultado en la página web
+    imagenResultado = new Image();
+    imagenResultado.src = data.output_url;
+    imagenResultado.onload = function() {
+      document.getElementById('resultado').innerHTML = '';
+      document.getElementById('resultado').appendChild(imagenResultado);
+
+      // Mostrar botones para cada estilo posible
+      const botonesEstilo = document.createElement('div');
+      for (let i = 0; i < estilos.length; i++) {
+        const boton = document.createElement('button');
+        boton.innerHTML = estilos[i];
+        boton.onclick = function() {
+          verificarEstilo(i);
+        };
+        botonesEstilo.appendChild(boton);
+      }
+      document.getElementById('resultado').appendChild(botonesEstilo);
+    };
+  };
+}
+
+function verificarEstilo(estiloBoton) {
+  const estilos = ["cubismo", "surrealismo", "art deco", "anime"];
+  const estiloActual = estilos[estiloBoton];
+  if (estiloActual === estiloSeleccionado) {
+    alert("¡Has seleccionado el estilo correcto!");
+    const qrCodeDiv = document.createElement('div');
+    qrCodeDiv.id = 'qrCode';
+    document.getElementById('resultado').appendChild(qrCodeDiv);
+    qrCode = new QRCode(qrCodeDiv, {
+      text: imagenResultado.src,
+      width: 200,
+      height: 200
+    });
+  } else {
+    alert("El estilo seleccionado no coincide con el estilo de la imagen procesada.");
+    if (qrCode) {
+      qrCode.clear();
+      const qrCodeDiv = document.getElementById('qrCode');
+      if (qrCodeDiv) {
+        qrCodeDiv.parentNode.removeChild(qrCodeDiv);
+      }
+    }
+  }
+}
