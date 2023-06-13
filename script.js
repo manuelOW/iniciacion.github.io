@@ -18,7 +18,7 @@ let imagenResultado;
         const imagenBase64 = lector.result.split(',')[1];
 
         // Obtener un estilo aleatorio
-        const estilos = ["cubismo", "surrealismo", "art deco", "anime"];
+        const estilos = ["cubismo", "impresionismo", "romanico", "bizantino", "expresionismo"];
         estiloSeleccionado = estilos[Math.floor(Math.random() * estilos.length)];
 
         // Hacer la solicitud a DeepAI Image API
@@ -60,7 +60,7 @@ let imagenResultado;
     }
 
     function verificarEstilo(estiloBoton) {
-      const estilos = ["cubismo", "surrealismo", "art deco", "anime"];
+      const estilos = ["cubismo", "impresionismo", "romanico", "bizantino", "expresionismo"];
       const estiloActual = estilos[estiloBoton];
       if (estiloActual === estiloSeleccionado) {
         alert("¡Has seleccionado el estilo correcto!");
