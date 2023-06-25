@@ -54,7 +54,7 @@ let imagenResultado;
     }
 
     function verificarEstilo(estiloBoton) {
-      const estilos = ["Convertido a Lápiz", "Convertido a Acuarela", "Convertido al Oleo", "Convertido al Puntillismo", "Convertido a Tinta China" , "Convertido al Pop Art", "Convertido a Grafitti];
+      const estilos = ["Convertido a Lápiz", "Convertido a Acuarela", "Convertido al Oleo", "Convertido al Puntillismo", "Convertido a Tinta China" , "Convertido al Pop Art", "Convertido a Grafitti"];
       const estiloActual = estilos[estiloBoton];
       if (estiloActual === estiloSeleccionado) {
         alert("¡Has seleccionado el estilo correcto!");
