@@ -54,7 +54,7 @@ let imagenResultado;
     }
 
     function verificarEstilo(estiloBoton) {
-      const estilos = ["Estilo Cubista", "Estilo Impresionista", "Estilo Románico", "Estilo Bizantino", "Estilo Expresionista"];
+      const estilos = ["Cubismo", "Expresionismo", "Gotico", "Barroco", "Art Pop", "Anime"];
       const estiloActual = estilos[estiloBoton];
       if (estiloActual === estiloSeleccionado) {
         alert("¡Has seleccionado el estilo correcto!");
