@@ -15,7 +15,7 @@ let imagenResultado;
       lector.onload = async () => {
         const imagenBase64 = lector.result.split(',')[1];
 
-        const estilos = ["Estilo Cubista", "Estilo Impresionista", "Estilo Románico", "Estilo Bizantino", "Estilo Expresionista"];
+        const estilos = ["Cubismo", "Expresionismo", "Gotico", "Barroco", "Art Pop", "Anime"];
         estiloSeleccionado = estilos[Math.floor(Math.random() * estilos.length)];
 
         const formData = new FormData();
