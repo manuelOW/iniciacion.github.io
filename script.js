@@ -15,7 +15,7 @@ let imagenResultado;
       lector.onload = async () => {
         const imagenBase64 = lector.result.split(',')[1];
 
-        const estilos = [ "Convertido al Puntillismo", "Convertido al Estilo Cubista" , "Convertido al Pop Art", "Convertido al Anime", "Convertido al Estilo Surrealista" ];
+        const estilos = ["Cubismo" ,"Art Noveau" , "Convertido al Pop Art", "Convertido al Anime", "Surrealismo" ];
         estiloSeleccionado = estilos[Math.floor(Math.random() * estilos.length)];
 
         const formData = new FormData();
@@ -54,7 +54,7 @@ let imagenResultado;
     }
 
     function verificarEstilo(estiloBoton) {
-      const estilos = ["Convertido al Puntillismo", "Convertido al Estilo Cubista" , "Convertido al Pop Art", "Convertido al Anime", "Convertido al Estilo Surrealista" ];
+      const estilos = ["Cubismo" ,"Art Noveau" , "Convertido al Pop Art", "Convertido al Anime", "Surrealismo" ];
       const estiloActual = estilos[estiloBoton];
       if (estiloActual === estiloSeleccionado) {
         alert("¡Has seleccionado el estilo correcto!");
